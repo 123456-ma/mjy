@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>非遗展馆 HTML</title>
+</head>
+<body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "SimHei", "Microsoft YaHei", "PingFang SC", sans-serif;
+        }
+
+        body {
+            background-color: #f5f2ef;
+            color: #332c24;
+            overflow-x: hidden;
+        }
+
+        /* 页面加载过渡 */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* 头部banner - 对标CGTN国风大视觉 */
+        .header-banner {
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(rgba(51,44,36,0.5), rgba(51,44,36,0.7)), url(./images/bg.gif) no-repeat center;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            position: relative;
+        }
+
+        .banner-title {
+            font-size: 4.5rem;
+            letter-spacing: 0.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .banner-subtitle {
+            font-size: 1.2rem;
+            letter-spacing: 0.3rem;
+            margin-bottom: 60px;
+            opacity: 0.9;
+        }
+
+        .banner-btn {
+            padding: 15px 40px;
+            background: transparent;
+            border: 2px solid #fff;
+            color: #fff;
+            font-size: 1rem;
+            letter-spacing: 0.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .banner-btn:hover {
+            background: #fff;
+            color: #332c24;
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 50px;
+            font-size: 2rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%,100% {transform: translateY(0);}
+            50% {transform: translateY(-10px);}
+        }
+
+        /* 馆名标题 - 简约国风分割 */
+        .museum-title {
+            width: 100%;
+            text-align: center;
+            padding: 80px 0 40px;
+        }
+
+        .museum-title h2 {
+            font-size: 2.5rem;
+            letter-spacing: 0.2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .museum-title h2::after {
+            content: "";
+            width: 60px;
+            height: 2px;
+            background: #8b4513;
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* 非遗四大板块 - 网格布局 对标CGTN卡片式展示 */
+        .intangible-heritage {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto 100px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .heritage-card {
+            height: 500px;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 5px 20px rgba(51,44,36,0.1);
+            transition: all 0.5s;
+        }
+
+        .heritage-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(51,44,36,0.2);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 70%;
+            overflow: hidden;
+        }
+
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s;
+        }
+
+        .heritage-card:hover .card-img img {
+            transform: scale(1.05);
+        }
+
+        .card-content {
+            width: 100%;
+            height: 30%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-content h3 {
+            font-size: 1.5rem;
+            letter-spacing: 0.1rem;
+            color: #8b4513;
+        }
+
+        .card-content p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.6;
+            margin: 10px 0;
+        }
+
+        .card-btn {
+            align-self: flex-start;
+            padding: 8px 25px;
+            background: #8b4513;
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .card-btn:hover {
+            background: #6d360f;
+        }
+
+        /* 非遗小知识 - 对标CGTN侧边注解风格 */
+        .heritage-tips {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto 100px;
+            padding: 40px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(51,44,36,0.1);
+        }
+
+        .heritage-tips h3 {
+            font-size: 1.8rem;
+            color: #8b4513;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .tips-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .tip-item {
+            padding: 20px;
+            border-left: 3px solid #f5d6ab;
+        }
+
+        .tip-item h4 {
+            margin-bottom: 10px;
+            letter-spacing: 0.1rem;
+        }
+
+        .tip-item p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* 底部 - 简约国风 */
+        .footer {
+            width: 100%;
+            padding: 50px 0;
+            background: #332c24;
+            color: #fff;
+            text-align: center;
+        }
+
+        .footer p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+            letter-spacing: 0.1rem;
+        }
+
+        .footer p:first-child {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            opacity: 1;
+        }
+
+        /* 响应式适配 - 移动端友好 */
+        @media (max-width: 768px) {
+            .banner-title {
+                font-size: 2.5rem;
+                letter-spacing: 0.3rem;
+            }
+
+            .banner-subtitle {
+                font-size: 1rem;
+                padding: 0 20px;
+            }
+
+            .museum-title h2 {
+                font-size: 2rem;
+            }
+
+            .heritage-card {
+                height: 480px;
+            }
+
+            .heritage-tips {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .banner-title {
+                font-size: 2rem;
+            }
+
+            .intangible-heritage {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .heritage-card {
+                height: 450px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部banner - 沉浸式国风视觉 -->
+    <header class="header-banner">
+        <h1 class="banner-title">数字方舟</h1>
+        <p class="banner-subtitle">皮影 · 脸谱 · 花灯 · 刺绣 ｜ 千年非遗 数字焕新</p >
+        <a href="http://127.0.0.1:5500/one.html/首页.html " class="banner-btn">进入数字馆</a >
+        <div class="scroll-down">↓</div>
+    </header>
+
+    <!-- 馆名标题 -->
+    <div class="museum-title">
+        <h2>四大非遗 匠心传承</h2>
+    </div>
+
+    <!-- 非遗四大板块核心内容 -->
+    <section class="intangible-heritage" id="heritage-section">
+        <!-- 皮影板块 -->
+        <div class="heritage-card">
+            <div class="card-img">
+                <img src="./images/皮影dt.gif" alt="皮影非遗">
+            </div>
+            <div class="card-content">
+                <div>
+                    <h3>皮影戏</h3>
+                    <p>光影为幕，皮影为角，中国皮影戏入选人类非物质文化遗产，融雕刻、表演、唱腔于一体，千年光影演绎人间百态。</p >
+                </div>
+                <a href="diy.html" class="card-btn">光影互动</a >
+            </div>
+        </div>
+
+        <!-- 脸谱板块 -->
+        <div class="heritage-card">
+            <div class="card-img">
+                <img src="./images/脸谱dt.gif" alt="京剧脸谱非遗">
+            </div>
+            <div class="card-content">
+                <div>
+                    <h3>京剧脸谱</h3>
+                    <p>生旦净丑，五彩勾容，京剧脸谱以形传神，以色表意，红忠黑正白奸蓝勇，一笔一画皆是中华戏曲文化的精髓。</p >
+                </div>
+                <a href="face-diy.html" class="card-btn">脸谱DIY</a >
+            </div>
+        </div>
+
+        <!-- 花灯板块 -->
+        <div class="heritage-card">
+            <div class="card-img">
+                <img src="./images/花灯dt.gif" alt="花灯非遗">
+            </div>
+            <div class="card-content">
+                <div>
+                    <h3>传统花灯</h3>
+                    <p>灯影摇曳，岁岁年年，花灯又称彩灯，融剪纸、彩绘、扎制于一体，是元宵佳节的文化符号，承载着万家团圆的期许。</p >
+                </div>
+                <a href="lantern.html" class="card-btn">花灯赏鉴</a >
+            </div>
+        </div>
+
+        <!-- 刺绣板块 -->
+        <div class="heritage-card">
+            <div class="card-img">
+                <img src="./images/刺绣dt.gif" alt="刺绣非遗">
+            </div>
+            <div class="card-content">
+                <div>
+                    <h3>中华刺绣</h3>
+                    <p>针丝为墨，锦缎为宣，苏湘粤蜀四大名绣，以针代笔，以线着色，将山水花鸟、人间故事凝于方寸锦绣。</p >
+                </div>
+                <a href="embroidery.html" class="card-btn">锦绣体验</a >
+            </div>
+        </div>
+    </section>
+
+    <!-- 非遗小知识 - 对标CGTN注解风格 -->
+    <section class="heritage-tips">
+        <h3>非遗小识</h3>
+        <div class="tips-content">
+            <div class="tip-item">
+                <h4>皮影 · 起源</h4>
+                <p>皮影戏始于西汉，成熟于唐代，兴盛于宋代，最早以羊皮、牛皮为原料，经二十余道工序雕刻而成。</p >
+            </div>
+            <div class="tip-item">
+                <h4>脸谱 · 色彩</h4>
+                <p>脸谱色彩有固定寓意，金银色饰神佛鬼怪，绿色饰勇猛暴躁者，紫色饰刚正肃穆的忠义之士。</p >
+            </div>
+            <div class="tip-item">
+                <h4>花灯 · 民俗</h4>
+                <p>花灯起源于汉代，盛于唐宋，元宵赏灯习俗延续至今，花灯制作融合了木工、剪纸、彩绘等多种工艺。</p >
+            </div>
+            <div class="tip-item">
+                <h4>刺绣 · 名绣</h4>
+                <p>苏绣针法灵动，湘绣狮虎传神，粤绣繁丽夺目，蜀绣色彩艳丽，四大名绣各有千秋，享誉中外。</p >
+            </div>
+        </div>
+    </section>
+
+    <!-- 底部 -->
+    <footer class="footer">
+        <p>千年非遗 数字焕新</p >
+        <p>线上非遗数字馆 © 2026 版权所有 | 传承中华匠心 创新数字体验</p >
+    </footer>
+</body>
+</html>
